@@ -3,48 +3,62 @@
    ========================================================================== */
 
 $(document).ready(function () {
-  // detect OS/browser preference
-  const browserPref = window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
+  // --- REMOVED browserPref detection as dark is now the hardcoded default ---
+  // const browserPref = window.matchMedia('(prefers-color-scheme: dark)').matches
+  //   ? 'dark'
+  //   : 'light';
 
   // Set the theme on page load or when explicitly called
   var setTheme = function (theme) {
+    // Priority: Explicit theme > localStorage > HARDCODED DARK DEFAULT
     const use_theme =
       theme ||
       localStorage.getItem("theme") ||
-      $("html").attr("data-theme") ||
-      browserPref;
+      "dark"; // <--- Default is now always 'dark'
 
     if (use_theme === "dark") {
       $("html").attr("data-theme", "dark");
       $("#theme-icon").removeClass("fa-sun").addClass("fa-moon");
-    } else if (use_theme === "light") {
-      $("html").removeAttr("data-theme");
+      if (!localStorage.getItem("theme")) { localStorage.setItem("theme", "dark"); }
+    } else { // Only other option is 'light'
+      $("html").removeAttr("data-theme"); // Use light theme styles (no data-theme attr)
       $("#theme-icon").removeClass("fa-moon").addClass("fa-sun");
     }
   };
 
+  // Set the initial theme on page load using the new logic
   setTheme();
 
-  // if user hasn't chosen a theme, follow OS changes
+  // --- REMOVED OS Preference Listener ---
+  // We no longer automatically follow OS changes. User choice via toggle is king.
+  /*
   window
     .matchMedia('(prefers-color-scheme: dark)')
     .addEventListener("change", (e) => {
+      // Only react if the user hasn't explicitly chosen a theme via toggle yet
       if (!localStorage.getItem("theme")) {
         setTheme(e.matches ? "dark" : "light");
       }
     });
+  */
 
   // Toggle the theme manually
   var toggleTheme = function () {
-    const current_theme = $("html").attr("data-theme");
-    const new_theme = current_theme === "dark" ? "light" : "dark";
+    // Check the CURRENT theme attribute to decide the NEW theme
+    const current_theme_attr = $("html").attr("data-theme");
+    const new_theme = current_theme_attr === "dark" ? "light" : "dark";
+
+    // Save the user's explicit choice to localStorage
     localStorage.setItem("theme", new_theme);
+
+    // Apply the new theme
     setTheme(new_theme);
   };
 
+  // Attach the toggle function to the button click
   $('#theme-toggle').on('click', toggleTheme);
+
+  // --- REST OF THE SCRIPT REMAINS THE SAME ---
 
   // These should be the same as the settings in _variables.scss
   const scssLarge = 925; // pixels
@@ -84,10 +98,10 @@ $(document).ready(function () {
   });
 
   // init smooth scroll, this needs to be slightly more than then fixed masthead height
-  $("a").smoothScroll({ 
+  $("a").smoothScroll({
     offset: -75, // needs to match $masthead-height
     preventDefault: false,
-  }); 
+  });
 
   // add lightbox class to all image links
   // Add "image-popup" to links ending in image extensions,
@@ -98,14 +112,14 @@ $(document).ready(function () {
   a[href$='.png'],\
   a[href$='.gif'],\
   a[href$='.webp']")
-      .not(':has(img)')
-      .addClass("image-popup");
+    .not(':has(img)')
+    .addClass("image-popup");
 
   // 1) Wrap every <p><img> (except emoji images) in an <a> pointing at the image, and give it the lightbox class
-  $('p > img').not('.emoji').each(function() {
+  $('p > img').not('.emoji').each(function () {
     var $img = $(this);
     // skip if it’s already wrapped in an <a.image-popup>
-    if ( ! $img.parent().is('a.image-popup') ) {
+    if (!$img.parent().is('a.image-popup')) {
       $('<a>')
         .addClass('image-popup')
         .attr('href', $img.attr('src'))
