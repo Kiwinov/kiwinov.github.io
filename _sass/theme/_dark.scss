@@ -1,54 +1,82 @@
 /* ==========================================================================
-   DARK THEME
+   DARK THEME - PITCH BLACK VERSION
    ========================================================================== */
 
-/* Color codes used for the theme */
-$gray                       : #7a8288;
-$dark-gray                  : mix(#000, $gray, 40%);
-$darker-gray                : mix(#000, $gray, 60%);
-$light-gray                 : mix(#fff, $gray, 50%);
+/* --- Original Color Definitions (kept for reference/potential reuse) --- */
+$original-gray : #7a8288;
+$original-dark-gray : mix(#000, $original-gray, 40%); // #494e52
+$original-darker-gray : mix(#000, $original-gray, 60%); // #313436
+$original-light-gray : mix(#fff, $original-gray, 50%); // #bcc1c4
+$original-link : #0ea1c5; // Original cyan link
 
-$background                 : #474747;
-$background-light           : mix(#fff, $background, 80%);
-$background-lighter         : mix(#fff, $background, 90%);
-$text                       : #ffffff;
-$link                       : #0ea1c5;
-$link-dark                  : mix(#000, $link, 25%);
-$link-light                 : mix(#fff, $link, 25%);
+/* --- NEW Pitch Black Theme Colors --- */
+// Core Colors
+$pb-background : #000000; // Pitch black background
+$pb-text : #e0e0e0; // Slightly off-white for less harshness (or use #ffffff)
+$pb-link : #87cefa; // Light Sky Blue - often good contrast on black (adjust as needed)
+$pb-link-hover : #b0e0e6; // Powder Blue - lighter for hover (adjust as needed)
+$pb-link-visited : #add8e6; // Light Blue - subtle change for visited (adjust as needed)
 
-/* Color codes used for the site */
-$danger-color               : #ee5f5b;
-$info-color                 : #2f7f93;
-$notice-color               : #7a8288;
-$success-color              : #62c462;
-$warning-color              : #f89406;
+// Shades for Borders, Subtle Backgrounds, etc.
+$pb-gray-darker : #111111; // Very dark gray, just off black
+$pb-gray-dark : #222222; // Dark gray
+$pb-gray-medium : #555555; // Medium gray
+$pb-gray-light : #aaaaaa; // Light gray (for less important text/elements)
 
-/* Other basic settings for the template */
-$border-radius              : 4px;
-$box-shadow                 : 0 1px 1px rgba(0, 0, 0, 0.125);
-$global-transition          : all 0.2s ease-in-out;
-$masthead-height            : 70px;
-$navicon-width              : 28px;
-$navicon-height             : 4px;
-$sidebar-link-max-width     : 250px;
-$sidebar-screen-min-width   : 1024px;
+// Code Block Specifics (adjust if needed)
+$pb-code-background : #1e1e1e; // Common dark editor background
+$pb-code-text : #d4d4d4; // Common dark editor text
 
-/* Dark theme for the site */
+/* --- Site Status Colors (Can often remain the same) --- */
+$danger-color : #ee5f5b; // Or consider slightly brighter versions if needed on black
+$info-color : #5bc0de; // Brighter info blue might be better
+$notice-color : $pb-gray-light; // Use a gray from the new palette
+$success-color : #5cb85c; // Standard green often works
+$warning-color : #f0ad4e; // Standard orange often works
+
+/* --- Basic Settings (Usually Unchanged by Theme) --- */
+$border-radius : 4px;
+$box-shadow : 0 1px 2px rgba(255, 255, 255, 0.08); // Subtle white shadow might be needed on black
+$global-transition : all 0.2s ease-in-out;
+$masthead-height : 70px;
+$navicon-width : 28px;
+$navicon-height : 4px;
+$sidebar-link-max-width : 250px;
+$sidebar-screen-min-width : 1024px;
+
+/* --- Apply Pitch Black Theme using CSS Variables --- */
 html[data-theme="dark"] {
-    --global-base-color                 : #{$background};
-    --global-bg-color                   : #{$background};
-    --global-footer-bg-color            : #{$background};
-    --global-border-color               : #{$light-gray};
-    --global-dark-border-color          : #{$background-light};
-    --global-code-background-color      : #fafafa;
-    --global-code-text-color            : #{$darker-gray};
-    --global-fig-caption-color          : #{$light-gray};
-    --global-link-color                 : #{$link};
-    --global-link-color-hover           : #{$link-dark};
-    --global-link-color-visited         : #{$link-light};
-    --global-masthead-link-color        : #{$text};
-    --global-masthead-link-color-hover  : #{$background-light};
-    --global-text-color                 : #{$text};
-    --global-text-color-light           : #{$light-gray};
-    --global-thead-color                : #{$background-lighter};
+    /* Using the new $pb- variables */
+    --global-base-color : #{$pb-background};
+    --global-bg-color : #{$pb-background};
+    --global-footer-bg-color : #{$pb-background}; // Or maybe $pb-gray-darker for slight contrast
+
+    --global-text-color : #{$pb-text};
+    --global-text-color-light : #{$pb-gray-light}; // Lighter gray for secondary text
+
+    --global-link-color : #{$pb-link};
+    --global-link-color-hover : #{$pb-link-hover};
+    --global-link-color-visited : #{$pb-link-visited};
+
+    --global-masthead-link-color : #{$pb-text}; // Text color for masthead links
+    --global-masthead-link-color-hover : #{$pb-link}; // Link color on hover might be better
+
+    --global-border-color : #{$pb-gray-dark}; // Dark gray border
+    --global-dark-border-color : #{$pb-gray-darker}; // Even darker border/divider
+    --global-thead-color : #{$pb-gray-darker}; // Table head background
+
+    --global-code-background-color : #{$pb-code-background};
+    --global-code-text-color : #{$pb-code-text};
+
+    --global-fig-caption-color : #{$pb-gray-light}; // Caption text
+
+    /* Update Alert/Notice colors if you changed them */
+    --global-danger-color : #{$danger-color};
+    --global-info-color : #{$info-color};
+    --global-notice-color : #{$notice-color};
+    --global-success-color : #{$success-color};
+    --global-warning-color : #{$warning-color};
+
+    /* Add other overrides as needed */
+    --global-box-shadow : #{$box-shadow}; // Apply the potentially updated shadow
 }
