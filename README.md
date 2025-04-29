@@ -1,4 +1,4 @@
 # Samarth's Website
-This is the source repository of the website: [kiwinov.github.io](kiwinov.github.io), which hosts the profile page of Samarth K J.
+This is the source repository of Samarth's [profile page](https://kiwinov.github.io).
 
-This webpage is built from [academicpages.github.io](academicpages.github.io).
+This webpage is built from [academicpages.github.io](https://academicpages.github.io).
