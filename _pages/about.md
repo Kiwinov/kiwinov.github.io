@@ -9,7 +9,7 @@ redirect_from:
 
 I am an engineering undergrad from the Indian Institute of Technology Madras. 
 
-I love solving challenging problems in tech. Working in deep-tech startups genuinely excites me for the same reason. 
+I love solving challenging problems in tech. Working in deep-tech genuinely excites me for the same reason. 
 My interest in math and machine learning drives my career choices of late. 
 
 Previously, I had been engaged as a Student Researcher in the intersection of AI and HCI at the [MIT Media Lab](https://www.media.mit.edu/) in Massachusetts Institute of Technology. I also worked in an early stage deep-tech startup, [Dirac Labs](https://diraclabs.com) for almost an entire year, taking up various responsibilities including ML Engineering, Research and Founder's Office Operations.
