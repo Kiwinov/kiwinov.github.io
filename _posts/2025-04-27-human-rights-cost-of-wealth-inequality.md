@@ -1,5 +1,5 @@
 ---
-title: 'Human Rights Cost of Wealth Inequality'
+title: 'The Human Rights Cost of Wealth Inequality'
 date: 2025-04-27
 permalink: /posts/2025/04/human-rights-cost-of-wealth-inequality/
 tags:
