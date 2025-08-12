@@ -15,4 +15,25 @@ redirect_from:
 <h2 id="{{ year | slugify }}" class="archive__subtitle">{{ year }}</h2>
 {% capture written_year %}{{ year }}{% endcapture %}
 {% endif %}
+
+{%- comment -%} This new block displays the post details {%- endcomment -%}
+<div class="list__item">
+    <article class="archive__item">
+        <h3 class="archive__item-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h3>
+
+        {%- comment -%} The next two paragraphs handle the metadata {%- endcomment -%}
+        <p class="page__meta">
+            {%- assign words = post.content | number_of_words -%}
+            <i class="far fa-clock" aria-hidden="true"></i>
+            {%- if words < 360 -%} 1 minute read {%- else -%} {{ words | divided_by: 180 }} minute read {%- endif -%}
+                </p>
+                <p class="page__meta">
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i> Published: {{ post.date | date: "%B %d, %Y"
+                    }}
+                </p>
+    </article>
+</div>
+
 {% endfor %}
