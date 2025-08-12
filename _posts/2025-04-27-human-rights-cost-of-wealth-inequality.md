@@ -1,13 +1,12 @@
 ---
 title: 'Human Rights Cost of Wealth Inequality'
 date: 2025-04-27
-permalink: /posts/2012/08/blog-post-1/
+permalink: /posts/2025/04/human-rights-cost-of-wealth-inequality/
 tags:
-  - cool posts
-  - category1
-  - category2
+  - human rights
+  - inequality
+  - capitalism
 ---
-***
 
 # The Human Rights Cost of Wealth Inequality
 
