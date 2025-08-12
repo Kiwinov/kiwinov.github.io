@@ -1,13 +1,11 @@
 ---
 permalink: /
-title: "About Me"
+title: "Hello!"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
-Hey!
-
 I'm an engineering undergrad from the Indian Institute of Technology Madras. 
 
 I love working on challenging problems.
