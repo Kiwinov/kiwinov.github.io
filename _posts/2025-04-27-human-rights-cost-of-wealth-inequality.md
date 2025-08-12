@@ -11,7 +11,7 @@ tags:
 # The Human Rights Cost of Wealth Inequality
 
 > “poverty is not just a lack of money; it is not having the capability to realize one's full potential as a human being."
-> - Abhijit V. Banerjee, Poor Economics: A Radical Rethinking of the Way to Fight Global Poverty
+> Abhijit V. Banerjee, Poor Economics: A Radical Rethinking of the Way to Fight Global Poverty
 
 In 2022, the richest 10% of the global population took home 52% of global income, whereas the poorest 50% of the population earned 8.5% of it[^1]. In developing countries like India, these figures tend to be worse; the top 1% currently hold 40.1% of India's wealth, while the bottom 50% hold just 6.4%[^2], this is among the highest in the entire world. Between 2015 and 2024, the wealth of the top 1% increased by $42 trillion, 34 times more than the bottom 50% of the global population[^3].
 
@@ -177,28 +177,28 @@ Ultimately, confronting wealth inequality is about restoring balance – not nec
 [^9]: Rise of Nationalism in Europe, NCERT
 [^10]: People cheer on United Healthcare CEO shooting
 [^11]: ASER, 2024
-[^12]: How Do Households Finance Private School Education - IIM Bangalore, 2018
-[^13]: World Bank Report on SA, Apr 2025 (https://www.worldbank.org/en/country/southafrica/overview)
-[^14]: Violent crime in South Africa reaches 20-year high - BBC News
+[^12]: How Do Households Finance Private School Education: IIM Bangalore, 2018
+[^13]: World Bank Report on SA, Apr 2025
+[^14]: Violent crime in South Africa reaches 20-year high: BBC News
 
 # Bibliography
-1.  ■ The Future of Inequality - Abhijit Banerjee(MIT, Professor of Economics)
+1.  The Future of Inequality: Abhijit Banerjee (MIT, Professor of Economics)
 2.  Inequality has grown enormously everywhere: Abhijit Banerjee
-3.  In Data: Billionaires' riches surge by trillions, poor left behind - Context by TRF
-4.  Billionaire Wealth Surged From 2015-2024; And They're Becoming More Mobile – UBS
+3.  In Data: Billionaires' riches surge by trillions, poor left behind: Context by TRF
+4.  Billionaire Wealth Surged From 2015-2024; And They're Becoming More Mobile: UBS
 5.  Are Plagues and Ward the Only Ways to Reduce Inequality?: Walter Scheidel
-6.  Why Inequality Bothers People More Than Poverty: : James Suzman
-7.  Top 1% Grow Wealth by $42 Trillion in Past Decade, 36 Times More Than Bottom 50%: Oxfam - The Wire
-8.  A Guide to Statistics on Historical Trends in Income Inequality - Center on Budget and Policy Priorities
-9.  https://aeon.co/essays/for-97-of-human-history-equality-was-the-norm-what-happened
+6.  Why Inequality Bothers People More Than Poverty: James Suzman
+7.  Top 1% Grow Wealth by $42 Trillion in Past Decade, 36 Times More Than Bottom 50%- Oxfam: The Wire
+8.  A Guide to Statistics on Historical Trends in Income Inequality: Center on Budget and Policy Priorities
+9.  For 97% of human history, equality was the norm, what happened?: Kim Sterelny
 10. Unjust Disparities: A Closer Look at Inequality in India.
 11. Extreme Inequality In India: Oxfam
-12. India's Income Inequality Worse Than Under British Rule: Report - TIME
-13. Only 50% Class 5 students can read Class 2 text, learning gap by Class 3: Report - India Today
-14. 669 govt primary schools in Tamil Nadu have less than 10 students - Chennai News - Times of India
+12. India's Income Inequality Worse Than Under British Rule - Report: TIME
+13. Only 50% Class 5 students can read Class 2 text, learning gap by Class 3: Report: India Today
+14. 669 govt primary schools in Tamil Nadu have less than 10 students - Chennai News: Times of India
 15. Families cut food, entertainment expenses to send kids to private schools: Research
-16. As police lose war on crime in South Africa, private security companies step in : NPR
+16. As police lose war on crime in South Africa, private security companies step in: NPR
 17. Inequality in India: A survey of recent trends: United Nations
 18. World Inequality Report 2022: Lucas Chancel et. al, World Inequality Lab
 19. Income and Wealth Inequality in India from 1922-2023: Nitin Kumar et. al, World Inequality Lab
-20. Indian Workers Remain Alive to The Class Struggle Despite Decades of Neoliberal Onslaught - Tanupriya Singh
+20. Indian Workers Remain Alive to The Class Struggle Despite Decades of Neoliberal Onslaught: Tanupriya Singh

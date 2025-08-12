@@ -26,12 +26,11 @@ redirect_from:
         {%- comment -%} The next two paragraphs handle the metadata {%- endcomment -%}
         <p class="page__meta">
             {%- assign words = post.content | number_of_words -%}
-            <i class="far fa-clock" aria-hidden="true"></i>
-            {%- if words < 360 -%} 1 minute read {%- else -%} {{ words | divided_by: 180 }} minute read {%- endif -%}
-                </p>
+            <i class="far fa-clock" aria-hidden="true"></i>&nbsp;
+            {%- if words < 360 -%}1 minute read{%- else -%}{{ words | divided_by: 180 }} minute read{%- endif -%} </p>
                 <p class="page__meta">
-                    <i class="far fa-calendar-alt" aria-hidden="true"></i> Published: {{ post.date | date: "%B %d, %Y"
-                    }}
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i>&nbsp;Published: {{ post.date | date: "%B %d,
+                    %Y" }}
                 </p>
     </article>
 </div>
