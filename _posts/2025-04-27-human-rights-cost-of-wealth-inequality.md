@@ -10,7 +10,7 @@ tags:
 
 # The Human Rights Cost of Wealth Inequality
 
-> “poverty is not just a lack of money; it is not having the capability to realize one's full potential as a human being."
+> “poverty is not just a lack of money; it is not having the capability to realize one's full potential as a human being.": 
 > Abhijit V. Banerjee, Poor Economics: A Radical Rethinking of the Way to Fight Global Poverty
 
 In 2022, the richest 10% of the global population took home 52% of global income, whereas the poorest 50% of the population earned 8.5% of it[^1]. In developing countries like India, these figures tend to be worse; the top 1% currently hold 40.1% of India's wealth, while the bottom 50% hold just 6.4%[^2], this is among the highest in the entire world. Between 2015 and 2024, the wealth of the top 1% increased by $42 trillion, 34 times more than the bottom 50% of the global population[^3].
