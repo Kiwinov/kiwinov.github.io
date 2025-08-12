@@ -9,7 +9,7 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "dark"
-title                    : "Samarth K J"
+title                    : "Kiwinov"
 title_separator          : "-"
 name                     : &name "Samarth K J"
 description              : &description "Profile Page"
@@ -25,7 +25,7 @@ author:
   avatar           : "profile_photo.png"
   name             : "Samarth K J"
   pronouns         : # example: "she/her"  
-  bio              : "I engineer novel systems"
+  bio              : "I build cool shit"
   location         : "Bengaluru, India"
   employer         : "IIT Madras"
   uri              : # URL
