@@ -28,7 +28,7 @@ author:
   bio              : "I build cool shit"
   location         : "Bengaluru, India"
   employer         : "IIT Madras"
-  uri              : "https://samarthkj.com"
+  # uri              : "https://samarthkj.com"
   email            : "contact@samarthkj.com" 
 
   # Academic websites
@@ -136,7 +136,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 :  "/images/profile_photo.png" # Open Graph/Twitter default site image
+og_image                 :  "https://samarthkj.com/images/profile_photo.png" # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
