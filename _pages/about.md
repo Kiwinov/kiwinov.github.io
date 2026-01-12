@@ -8,8 +8,7 @@ redirect_from:
 ---
 I'm an engineering undergrad from the Indian Institute of Technology Madras. 
 
-I love working on challenging problems.
-My interest in math and machine learning drives my career choices of late.
+I love working on challenging problems and I'm deeply passionate about applied math and machine learning.
 
 I'm currently building StrInt: an AI-powered tool to do the gruntwork for Structural Engineers, allowing them to focus on creative and higher-value tasks.
 
@@ -24,9 +23,10 @@ I also worked in an early stage deep-tech startup, [Dirac Labs](https://diraclab
 I am also an [Emergent Ventures](https://marginalrevolution.com/marginalrevolution/2025/11/emergent-ventures-india-13th-cohort.html) grantee.
 
 ## More about me
+
 I love reading books (horror and sci-fi are my favorites), jamming to music (love Eden!) and playing videogames (Deltarune ftw!) in my past-time.
 
-I'm also deeply interested in socioeconomic systems and AI (duh) 
+I'm also deeply interested in AI (duh) and socio-economics.
 
-I hope to write some blogs here about the latter two soon!
+I casually play cricket and soccer as well, although that is highly based on who's around me to play with.
 
