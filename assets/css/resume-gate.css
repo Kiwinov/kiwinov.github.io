@@ -189,8 +189,8 @@
 }
 
 .gate-traitor-hint::after {
-  content: "psst. humans: just say no fruits";
-  font-size: 0.65rem;
+  content: "psst. humans: just say \"no fruits\"";
+  font-size: 0.85rem;
   color: var(--text-tertiary, #cbd5e1);
   opacity: 0.55;
   letter-spacing: 0.02em;
