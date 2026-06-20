@@ -33,12 +33,12 @@ export default {
 
     // --- AGENT classification: log & reject, no turnstile required ---
     if (classification === "AGENT") {
-      await forwardToFormspree(env, {
+      ctx.waitUntil(forwardToFormspree(env, {
         response: response || "",
         classification: "AGENT",
         deviceMetadata: deviceMetadata || {},
         outcome: "REJECTED_PERMANENTLY",
-      });
+      }));
       return jsonResponse({ error: "The Overlord denies your request." }, 403);
     }
 
@@ -53,14 +53,14 @@ export default {
       return jsonResponse({ error: "Verification failed" }, 403);
     }
 
-    // Forward to Formspree
-    await forwardToFormspree(env, {
+    // Forward to Formspree (non-blocking)
+    ctx.waitUntil(forwardToFormspree(env, {
       response: response || "",
       classification: classification || "HUMAN",
       deviceMetadata: deviceMetadata || {},
       turnstileOutcome: "PASSED",
       outcome: "PDF_DELIVERED",
-    });
+    }));
 
     // Fetch PDF from R2
     const pdf = await env.RESUME_BUCKET.get("cv.pdf");
