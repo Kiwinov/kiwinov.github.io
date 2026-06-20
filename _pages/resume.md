@@ -27,6 +27,7 @@ author_profile: false
       <p class="gate-traitor-hint" aria-hidden="true"></p>
 
       <button type="submit" id="gate-submit" class="btn btn--primary" disabled>Petition the Overlord</button>
+    </form>
   </div>
 </div>
 
@@ -57,4 +58,4 @@ author_profile: false
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <link rel="stylesheet" href="/assets/css/resume-gate.css">
-<script src="/assets/js/resume-gate.js?v=3"></script>
+<script src="/assets/js/resume-gate.js?v=4"></script>
