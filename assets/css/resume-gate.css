@@ -10,8 +10,8 @@
 }
 
 [data-theme="dark"] .gate-container {
-  background: #1e1e2e;
-  border-color: #2d2d3f;
+  background: #1e1e1e;
+  border-color: #333;
 }
 
 .gate-container h2 {
@@ -72,8 +72,8 @@
 
 [data-theme="dark"] #gate-form input[type="text"],
 [data-theme="dark"] #gate-form input[type="email"] {
-  background: #16162a;
-  border-color: #2d2d3f;
+  background: #252525;
+  border-color: #3a3a3a;
   color: #e2e8f0;
 }
 
@@ -131,6 +131,13 @@
   color: #e53e3e;
   font-size: 0.78rem;
   margin-top: 0.35rem;
+  display: none;
+}
+
+#email-error {
+  color: #e53e3e;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
   display: none;
 }
 

@@ -114,6 +114,13 @@
       var name = form.querySelector("#gate-name").value.trim();
       var email = form.querySelector("#gate-email").value.trim();
 
+      // Validate email
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById("email-error").style.display = "block";
+        return;
+      }
+      document.getElementById("email-error").style.display = "none";
+
       setButtonLoading(submitBtn, true);
 
       fetchPdf(token, name, email)

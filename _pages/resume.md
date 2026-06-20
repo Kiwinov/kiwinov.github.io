@@ -19,6 +19,7 @@ author_profile: false
       <div class="form-group">
         <label for="gate-email">Email <span class="required">*</span></label>
         <input type="email" id="gate-email" name="email" required placeholder="you@example.com" autocomplete="email">
+        <div class="field-error" id="email-error">Please enter a valid email address.</div>
       </div>
 
       <div class="form-group captcha-group">
@@ -28,10 +29,6 @@ author_profile: false
 
       <button type="submit" id="gate-submit" class="btn btn--primary" disabled>Download Resume</button>
     </form>
-
-    <p class="gate-footer">
-      Your information is not shared. You won't need to fill this again.
-    </p>
   </div>
 </div>
 
