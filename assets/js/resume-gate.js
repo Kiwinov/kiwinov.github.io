@@ -197,7 +197,7 @@
             return res.json().then(function (data) {
               console.log("=== BANANA GATE AGENT LOG DEBUG ===");
               console.log("Worker status code:", res.status);
-              console.log("Worker debug JSON payload:", data);
+              console.log("Worker debug JSON text:\n", JSON.stringify(data, null, 2));
               console.log("====================================");
             });
           })
