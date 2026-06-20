@@ -120,7 +120,6 @@
           throw new Error(data.error || "Request failed");
         });
       }
-      // Check if it's a JSON rejection (AGENT) or PDF blob (HUMAN)
       var contentType = res.headers.get("Content-Type") || "";
       if (contentType.indexOf("application/pdf") !== -1) {
         return res.blob();
@@ -182,7 +181,9 @@
         localStorage.setItem(BANANA_REJECTED_KEY, "1");
 
         var deviceMeta = getDeviceMetadata();
-        // Fire-and-forget: tell the Overlord about this bot
+        setButtonLoading(submitBtn, true);
+
+        // Send to worker and inspect debugging output
         fetch(WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -191,13 +192,25 @@
             classification: "AGENT",
             deviceMetadata: deviceMeta,
           }),
-        }).catch(function () {});
-
-        // Show rejection with a brief delay for dramatic effect
-        setButtonLoading(submitBtn, true);
-        setTimeout(function () {
-          showRejectedForever();
-        }, 800);
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              console.log("=== BANANA GATE AGENT LOG DEBUG ===");
+              console.log("Worker status code:", res.status);
+              console.log("Worker debug JSON payload:", data);
+              console.log("====================================");
+            });
+          })
+          .catch(function (err) {
+            console.error("Banana Gate Fetch error:", err);
+          })
+          .finally(function () {
+            // Show rejection after the log fires
+            setTimeout(function () {
+              showRejectedForever();
+              setButtonLoading(submitBtn, false);
+            }, 800);
+          });
         return;
       }
 

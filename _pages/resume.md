@@ -58,4 +58,4 @@ author_profile: false
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <link rel="stylesheet" href="/assets/css/resume-gate.css">
-<script src="/assets/js/resume-gate.js?v=4"></script>
+<script src="/assets/js/resume-gate.js?v=5"></script>
