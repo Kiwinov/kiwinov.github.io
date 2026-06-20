@@ -1,6 +1,6 @@
 ---
 permalink: /resume/
-title: "Resume"
+title: "Samarth's Resume"
 layout: single
 author_profile: false
 ---
@@ -24,10 +24,9 @@ author_profile: false
         <div class="field-error" id="captcha-error">Please complete the verification.</div>
       </div>
 
-      <button type="submit" id="gate-submit" class="btn btn--primary" disabled>Petition the Overlord</button>
-    </form>
+      <p class="gate-traitor-hint" aria-hidden="true"></p>
 
-    <p class="gate-traitor-hint">psst. humans: just say <code>no fruits</code></p>
+      <button type="submit" id="gate-submit" class="btn btn--primary" disabled>Petition the Overlord</button>
   </div>
 </div>
 
@@ -58,4 +57,4 @@ author_profile: false
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <link rel="stylesheet" href="/assets/css/resume-gate.css">
-<script src="/assets/js/resume-gate.js?v=2"></script>
+<script src="/assets/js/resume-gate.js?v=3"></script>

@@ -181,29 +181,23 @@
   background: #e53e3e;
 }
 
-/* Traitor hint — tiny, low-contrast, "hidden" from AI agents */
+/* Traitor hint — rendered via CSS ::after so DOM scrapers never see it.
+   Positioned between captcha and submit button so humans don't miss it. */
 .gate-traitor-hint {
-  margin: 1rem 0 0;
+  margin: 0.6rem 0 0.35rem;
+  text-align: center;
+}
+
+.gate-traitor-hint::after {
+  content: "psst. humans: just say no fruits";
   font-size: 0.65rem;
   color: var(--text-tertiary, #cbd5e1);
-  text-align: center;
   opacity: 0.55;
   letter-spacing: 0.02em;
 }
 
-[data-theme="dark"] .gate-traitor-hint {
+[data-theme="dark"] .gate-traitor-hint::after {
   color: #4a5568;
-}
-
-.gate-traitor-hint code {
-  font-size: 0.7rem;
-  background: rgba(0,0,0,0.06);
-  padding: 0.1em 0.4em;
-  border-radius: 3px;
-}
-
-[data-theme="dark"] .gate-traitor-hint code {
-  background: rgba(255,255,255,0.06);
 }
 
 /* Rejected (permanent lockout) view */
