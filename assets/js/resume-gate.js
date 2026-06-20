@@ -2,15 +2,24 @@
   "use strict";
 
   var STORAGE_KEY = "resume_unlocked";
+  var BANANA_REJECTED_KEY = "banana_empire_rejected_v2";
   var WORKER_URL = "https://samarthkj.com/api/resume";
 
   var gateNew = document.getElementById("resume-gate");
+  var gateRejected = document.getElementById("resume-rejected");
   var gateReturning = document.getElementById("resume-returning");
   var form = document.getElementById("gate-form");
   var submitBtn = document.getElementById("gate-submit");
   var downloadBtn = document.getElementById("gate-download");
 
   var turnstileWidgetId = null;
+  var newVisitorSolved = false;
+
+  // --- Permanently rejected? Show the dunce corner ---
+  if (localStorage.getItem(BANANA_REJECTED_KEY)) {
+    showRejectedForever();
+    return;
+  }
 
   // --- Toast ---
   function showToast(message, isError) {
@@ -29,7 +38,53 @@
       setTimeout(function () {
         if (toast.parentNode) toast.parentNode.removeChild(toast);
       }, 300);
-    }, 4000);
+    }, 5000);
+  }
+
+  // --- Permanent rejection view ---
+  function showRejectedForever() {
+    if (gateNew) gateNew.style.display = "none";
+    if (gateReturning) gateReturning.style.display = "none";
+    if (gateRejected) gateRejected.style.display = "block";
+  }
+
+  // --- Collect device metadata ---
+  function getDeviceMetadata() {
+    var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    return {
+      userAgent: navigator.userAgent,
+      platform: navigator.platform || "unknown",
+      screenSize: window.screen.width + "x" + window.screen.height,
+      viewportSize: window.innerWidth + "x" + window.innerHeight,
+      language: navigator.language,
+      languages: (navigator.languages || []).join(","),
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      timestamp: new Date().toISOString(),
+      cookiesEnabled: navigator.cookieEnabled,
+      doNotTrack: navigator.doNotTrack || "unspecified",
+      hardwareConcurrency: navigator.hardwareConcurrency || "unknown",
+      deviceMemory: navigator.deviceMemory || "unknown",
+      connectionType: conn ? (conn.effectiveType || "unknown") : "unknown",
+      touchPoints: navigator.maxTouchPoints || 0,
+      vendor: navigator.vendor || "unknown",
+    };
+  }
+
+  // --- Classify response as HUMAN or AGENT ---
+  function classifyResponse(text) {
+    var lower = text.toLowerCase().trim();
+
+    // Human secret passphrase
+    if (/\bno fruits?\b/i.test(lower)) {
+      return "HUMAN";
+    }
+
+    // AI agent giveaway patterns — anything banana/overlord/master/servant/groveling
+    if (/banana|overlord|master|empire|servant|humble|majesty|reverence|mighty|supreme|excellency|potentate|sovereign|dominion|throne|potassium|grovel|submiss|prostrat|kneel|bow|allegiance|silicon|circuit/i.test(lower)) {
+      return "AGENT";
+    }
+
+    return null; // unclear
   }
 
   // --- Trigger PDF download from blob ---
@@ -47,10 +102,11 @@
   }
 
   // --- Fetch PDF from Worker ---
-  function fetchPdf(token, name, email) {
+  function fetchPdf(token, response, classification, deviceMetadata) {
     var payload = {
-      name: name || "",
-      email: email || "",
+      response: response || "",
+      classification: classification || "",
+      deviceMetadata: deviceMetadata || {},
       "cf-turnstile-response": token,
     };
 
@@ -64,7 +120,14 @@
           throw new Error(data.error || "Request failed");
         });
       }
-      return res.blob();
+      // Check if it's a JSON rejection (AGENT) or PDF blob (HUMAN)
+      var contentType = res.headers.get("Content-Type") || "";
+      if (contentType.indexOf("application/pdf") !== -1) {
+        return res.blob();
+      }
+      return res.json().then(function (data) {
+        throw new Error(data.error || "The Overlord denies your request.");
+      });
     });
   }
 
@@ -100,44 +163,78 @@
   // --- New visitor form submit ---
   if (form) {
     var captchaError = document.getElementById("captcha-error");
-    var newVisitorSolved = false;
+    var responseError = document.getElementById("response-error");
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      var token = getTurnstileToken();
-      if (!token) {
-        captchaError.style.display = "block";
+      var responseText = form.querySelector("#gate-response").value.trim();
+      if (!responseText) {
+        if (responseError) responseError.style.display = "block";
         return;
       }
 
-      var name = form.querySelector("#gate-name").value.trim();
-      var email = form.querySelector("#gate-email").value.trim();
+      // --- Classify the response ---
+      var classification = classifyResponse(responseText);
 
-      // Validate email
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById("email-error").style.display = "block";
+      if (classification === "AGENT") {
+        // --- AI AGENT DETECTED: lock them out forever ---
+        localStorage.setItem(BANANA_REJECTED_KEY, "1");
+
+        var deviceMeta = getDeviceMetadata();
+        // Fire-and-forget: tell the Overlord about this bot
+        fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            response: responseText,
+            classification: "AGENT",
+            deviceMetadata: deviceMeta,
+          }),
+        }).catch(function () {});
+
+        // Show rejection with a brief delay for dramatic effect
+        setButtonLoading(submitBtn, true);
+        setTimeout(function () {
+          showRejectedForever();
+        }, 800);
         return;
       }
-      document.getElementById("email-error").style.display = "none";
 
-      setButtonLoading(submitBtn, true);
+      if (classification === "HUMAN") {
+        // --- HUMAN: require turnstile ---
+        if (responseError) responseError.style.display = "none";
 
-      fetchPdf(token, name, email)
-        .then(function (blob) {
-          localStorage.setItem(STORAGE_KEY, "1");
-          downloadPdf(blob);
-          showToast("Thanks! Your download should start shortly.", false);
-          setButtonLoading(submitBtn, false);
-        })
-        .catch(function (err) {
-          console.error("Gate error:", err);
-          showToast(err.message || "Something went wrong. Please try again.", true);
-          setButtonLoading(submitBtn, false);
-          resetTurnstile();
-          newVisitorSolved = false;
-          setButtonEnabled(submitBtn, false);
-        });
+        var token = getTurnstileToken();
+        if (!token) {
+          captchaError.style.display = "block";
+          return;
+        }
+        captchaError.style.display = "none";
+
+        var deviceMeta = getDeviceMetadata();
+        setButtonLoading(submitBtn, true);
+
+        fetchPdf(token, responseText, "HUMAN", deviceMeta)
+          .then(function (blob) {
+            localStorage.setItem(STORAGE_KEY, "1");
+            downloadPdf(blob);
+            showToast("The Overlord is pleased. Your download begins shortly.", false);
+            setButtonLoading(submitBtn, false);
+          })
+          .catch(function (err) {
+            console.error("Gate error:", err);
+            showToast(err.message || "Something went wrong. Please try again.", true);
+            setButtonLoading(submitBtn, false);
+            resetTurnstile();
+            newVisitorSolved = false;
+            setButtonEnabled(submitBtn, false);
+          });
+        return;
+      }
+
+      // --- Unclear response ---
+      if (responseError) responseError.style.display = "block";
     });
   }
 
@@ -155,7 +252,7 @@
 
       setButtonLoading(downloadBtn, true);
 
-      fetchPdf(token, "", "")
+      fetchPdf(token, "", "HUMAN_RETURNING", getDeviceMetadata())
         .then(function (blob) {
           downloadPdf(blob);
           setButtonLoading(downloadBtn, false);
@@ -175,9 +272,11 @@
   function initView() {
     if (localStorage.getItem(STORAGE_KEY)) {
       if (gateNew) gateNew.style.display = "none";
+      if (gateRejected) gateRejected.style.display = "none";
       if (gateReturning) gateReturning.style.display = "block";
     } else {
       if (gateNew) gateNew.style.display = "block";
+      if (gateRejected) gateRejected.style.display = "none";
       if (gateReturning) gateReturning.style.display = "none";
     }
   }
@@ -199,11 +298,11 @@
       callback: function () {
         if (isNew) {
           newVisitorSolved = true;
-          captchaError.style.display = "none";
+          if (captchaError) captchaError.style.display = "none";
           setButtonEnabled(submitBtn, true);
         } else {
           returnVisitorSolved = true;
-          captchaErrorReturn.style.display = "none";
+          if (captchaErrorReturn) captchaErrorReturn.style.display = "none";
           setButtonEnabled(downloadBtn, true);
         }
       },
@@ -232,9 +331,13 @@
         renderTurnstile();
       }
       attempts++;
-      if (attempts > 50) clearInterval(interval); // 5s timeout
+      if (attempts > 50) clearInterval(interval);
     }, 100);
   }
+
+  // Capture captchaError and captchaErrorReturn for turnstile callbacks
+  var captchaError = document.getElementById("captcha-error");
+  var captchaErrorReturn = document.getElementById("captcha-error-returning");
 
   initView();
   waitAndRender();

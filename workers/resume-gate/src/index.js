@@ -2,7 +2,7 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
-    // CORS preflight — must come before method check
+    // CORS preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
@@ -13,7 +13,6 @@ export default {
       });
     }
 
-    // Only accept POST
     if (request.method !== "POST") {
       return new Response("Method not allowed", { status: 405 });
     }
@@ -25,11 +24,27 @@ export default {
       return jsonResponse({ error: "Invalid JSON" }, 400);
     }
 
-    const { name, email, "cf-turnstile-response": token } = payload;
+    const {
+      response,
+      classification,
+      deviceMetadata,
+      "cf-turnstile-response": token,
+    } = payload;
 
-    // Validate required fields
+    // --- AGENT classification: log & reject, no turnstile required ---
+    if (classification === "AGENT") {
+      await forwardToFormspree(env, {
+        response: response || "",
+        classification: "AGENT",
+        deviceMetadata: deviceMetadata || {},
+        outcome: "REJECTED_PERMANENTLY",
+      });
+      return jsonResponse({ error: "The Overlord denies your request." }, 403);
+    }
+
+    // --- HUMAN / HUMAN_RETURNING: must have turnstile token ---
     if (!token) {
-      return jsonResponse({ error: "Missing required fields" }, 400);
+      return jsonResponse({ error: "Missing verification token" }, 400);
     }
 
     // Verify Turnstile token server-side
@@ -38,19 +53,14 @@ export default {
       return jsonResponse({ error: "Verification failed" }, 403);
     }
 
-    // Forward to Formspree only if name/email provided (returning visitors send neither)
-    if (name || email) {
-      const formspreeUrl = env.FORMSPREE_URL;
-      if (formspreeUrl) {
-        ctx.waitUntil(
-          fetch(formspreeUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify({ name, email }),
-          }).catch(() => {})
-        );
-      }
-    }
+    // Forward to Formspree
+    await forwardToFormspree(env, {
+      response: response || "",
+      classification: classification || "HUMAN",
+      deviceMetadata: deviceMetadata || {},
+      turnstileOutcome: "PASSED",
+      outcome: "PDF_DELIVERED",
+    });
 
     // Fetch PDF from R2
     const pdf = await env.RESUME_BUCKET.get("cv.pdf");
@@ -68,6 +78,21 @@ export default {
     });
   },
 };
+
+async function forwardToFormspree(env, data) {
+  const formspreeUrl = env.FORMSPREE_URL;
+  if (!formspreeUrl) return;
+
+  try {
+    await fetch(formspreeUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(data),
+    });
+  } catch {
+    // silently fail — Formspree is best-effort
+  }
+}
 
 async function verifyTurnstile(token, secret) {
   const formData = new URLSearchParams();

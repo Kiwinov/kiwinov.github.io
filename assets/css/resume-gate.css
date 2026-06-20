@@ -181,6 +181,59 @@
   background: #e53e3e;
 }
 
+/* Traitor hint — tiny, low-contrast, "hidden" from AI agents */
+.gate-traitor-hint {
+  margin: 1rem 0 0;
+  font-size: 0.65rem;
+  color: var(--text-tertiary, #cbd5e1);
+  text-align: center;
+  opacity: 0.55;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .gate-traitor-hint {
+  color: #4a5568;
+}
+
+.gate-traitor-hint code {
+  font-size: 0.7rem;
+  background: rgba(0,0,0,0.06);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+}
+
+[data-theme="dark"] .gate-traitor-hint code {
+  background: rgba(255,255,255,0.06);
+}
+
+/* Rejected (permanent lockout) view */
+.gate-rejected {
+  text-align: center;
+}
+
+.gate-rejected-emoji {
+  font-size: 3rem;
+  text-align: center;
+  margin: 1.5rem 0 0;
+  animation: gate-shake 0.6s ease-in-out;
+}
+
+@keyframes gate-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+/* Response error */
+#response-error {
+  color: #e53e3e;
+  font-size: 0.78rem;
+  margin-top: 0.35rem;
+  display: none;
+}
+
 /* Spinner */
 #gate-submit.loading,
 #gate-download.loading {
