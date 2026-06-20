@@ -16,3 +16,6 @@ vendor
 
 .DS_Store
 *.DS_Store
+
+# Resume PDF — served via Cloudflare Worker from R2
+cv.pdf
